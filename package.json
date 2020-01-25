@@ -1,10 +1,11 @@
 {
-  "name": "electron-quick-start",
+  "name": "tada",
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder --mac"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -17,6 +18,37 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^7.1.10"
+    "dotenv": "^8.2.0",
+    "electron": "^7.1.10",
+    "electron-builder": "^22.2.0",
+    "electron-notarize": "^0.2.1"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.0.3"
+  },
+  "build": {
+    "artifactName": "${name}-${version}-${os}.${ext}",
+    "appId": "com.views.tada",
+    "productName": "Tada",
+    "electronVersion": "8.0.0-beta.7",
+    "files": [
+      "confetti.js",
+      "index.html",
+      "main.js",
+      "renderer.js",
+      "preload.js"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "./build/icon.icns",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "./build/entitlements.mac.plist",
+      "entitlementsInherit": "./build/entitlements.mac.plist"
+    },
+    "afterSign": "./build/notarize.js"
   }
 }
